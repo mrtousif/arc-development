@@ -2,11 +2,10 @@ import React from 'react';
 
 // import Button from '@material-ui/core/Button';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+import { CssBaseline, Grid, Container } from '@material-ui/core';
 // import Typography from '@material-ui/core/Typography';
 // import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+
 // import Copyright from '../components/Copyright';
 // import ky from 'ky';
 // import Post from '../components/Post';
@@ -16,6 +15,7 @@ export default function Home() {
         <Container>
             <CssBaseline />
             <Grid container>
+                <div style={{ height: 360 }}>Home</div>
                 {/* <Grid container direction="column" sm={8} xs={12}>
                     <Typography>Posts....</Typography>
 

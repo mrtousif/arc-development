@@ -11,6 +11,14 @@ const theme = createMuiTheme({
             main: orange[300],
         },
     },
+    // typography: {
+    //     tab: {
+    //         textTransform: 'none',
+    //         fontWeight: 700,
+    //         color: 'white',
+    //         fontSize: '1rem',
+    //     },
+    // },
 });
 
 export default theme;
