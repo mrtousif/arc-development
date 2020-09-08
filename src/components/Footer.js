@@ -118,7 +118,7 @@ function Footer(props) {
                                 component={Link}
                                 to="/mobileapp"
                             >
-                                Mobile App Development
+                                Android/iOS App Development
                             </Grid>
                             <Grid
                                 item
@@ -247,7 +247,7 @@ function Footer(props) {
                 <Grid
                     item
                     component={'a'}
-                    href="https://www.twitter.com"
+                    href="https://www.instagram.com"
                     rel="noopener noreferer"
                     target="_blank"
                 >
@@ -260,7 +260,7 @@ function Footer(props) {
                 <Grid
                     item
                     component={'a'}
-                    href="https://www.instagram.com"
+                    href="https://www.twitter.com"
                     rel="noopener noreferer"
                     target="_blank"
                 >

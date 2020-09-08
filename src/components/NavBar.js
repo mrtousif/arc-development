@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
     AppBar,
@@ -19,22 +20,10 @@ import {
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 // import Menu from './Menu';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-        margin: 0,
-        padding: 0,
-    },
     logo: {
         // maxWidth: 160,
         height: '7em',
@@ -59,11 +48,12 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 10,
         marginLeft: '10px',
     },
-    button: {
+    estimate: {
         borderRadius: '50px',
         marginLeft: '20px',
         marginRight: '25px',
         textTransform: 'none',
+        fontFamily: 'Pacifico',
     },
     menu: {
         backgroundColor: theme.palette.primary.main,
@@ -148,13 +138,13 @@ export default function NavBar(props) {
     const menuOptions = [
         { name: 'Services', link: '/services' },
         { name: 'Custom Software Development', link: '/customsoftware' },
-        { name: 'Mobile App Development', link: '/mobileapp' },
+        { name: 'Android/iOS App Development', link: '/mobileapp' },
         { name: 'Website Development', link: '/website' },
     ];
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+    // const handleChange = (event, newValue) => {
+    //     setValue(newValue);
+    // };
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -223,7 +213,7 @@ export default function NavBar(props) {
         <React.Fragment>
             <Tabs
                 value={value}
-                onChange={handleChange}
+                onChange={(event, value) => setValue(value)}
                 className={classes.tabContainer}
             >
                 {routes.map((route, i) => (
@@ -241,11 +231,12 @@ export default function NavBar(props) {
             </Tabs>
 
             <Button
-                className={classes.button}
+                className={classes.estimate}
                 variant="contained"
                 color="secondary"
                 component={Link}
                 to="/estimate"
+                onClick={(value) => setValue(value)}
             >
                 Free Estimate
             </Button>
@@ -280,6 +271,7 @@ export default function NavBar(props) {
         </React.Fragment>
     );
 
+    // menu drawer
     const drawer = (
         <React.Fragment>
             <SwipeableDrawer
@@ -355,7 +347,7 @@ export default function NavBar(props) {
     );
 
     return (
-        <nav className={classes.root}>
+        <nav>
             <ElevationScroll {...props}>
                 <AppBar position="sticky" className={classes.appBar}>
                     <Toolbar disableGutters>
