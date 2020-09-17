@@ -240,6 +240,7 @@ export default function NavBar(props) {
             >
                 Free Estimate
             </Button>
+
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}

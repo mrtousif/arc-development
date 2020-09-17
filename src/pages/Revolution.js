@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import vision from '../assets/vision.svg';
 import Lottie from 'lottie-react';
 import technologyAnimation from '../animations/technologyAnimation/data.json';
 import consultationIcon from '../assets/consultationIcon.svg';
@@ -12,6 +11,7 @@ import buildIcon from '../assets/buildIcon.svg';
 import launchIcon from '../assets/launchIcon.svg';
 import maintainIcon from '../assets/maintainIcon.svg';
 import iterateIcon from '../assets/iterateIcon.svg';
+import vision from '../assets/vision.svg';
 
 const useStyles = makeStyles((theme) => ({
     itemContainer: {

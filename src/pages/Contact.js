@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Contact(props) {
+    const { setValue } = props;
     const classes = useStyles();
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -471,7 +472,7 @@ function Contact(props) {
                         className={classes.estimate}
                         component={Link}
                         to="/estimate"
-                        onClick={onConfirm}
+                        onClick={() => setValue(5)}
                     >
                         Free Estimate
                     </Button>

@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CustomSoftware(props) {
-    const { setSelectedIndex } = props;
+    const { setValue, setSelectedIndex } = props;
     const classes = useStyles();
     const theme = useTheme();
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
@@ -442,7 +442,7 @@ function CustomSoftware(props) {
                 </Grid>
             </Container>
 
-            <CallToAction />
+            <CallToAction setValue={setValue} />
         </React.Fragment>
     );
 }

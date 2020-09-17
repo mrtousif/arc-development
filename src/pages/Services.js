@@ -164,6 +164,7 @@ function Services(props) {
                             <ArrowForwardIosIcon fontSize="inherit" />
                         </Button>
                     </Grid>
+
                     <Grid item className={classes.icon}>
                         <img alt="custom software" src={customSoftwareIcon} />
                     </Grid>

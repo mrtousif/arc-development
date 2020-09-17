@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 
 // pages
-import LandingPage from './LandingPage';
-import Services from './Services';
-import CustomSoftware from './CustomSoftware';
-import MobileApp from './MobileApp';
-import Website from './Website';
-import Revolution from './Revolution';
-import About from './About';
-import Contact from './Contact';
-import Estimate from './Estimate';
+import LandingPage from './pages/LandingPage';
+import Services from './pages/Services';
+import CustomSoftware from './pages/CustomSoftware';
+import MobileApp from './pages/MobileApp';
+import Website from './pages/Website';
+import Revolution from './pages/Revolution';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Estimate from './pages/Estimate2';
 // import tour5 from './tour5';
 
 function App() {
@@ -58,6 +58,7 @@ function App() {
                         render={(props) => (
                             <CustomSoftware
                                 {...props}
+                                setValue={setValue}
                                 setSelectedIndex={setSelectedIndex}
                             />
                         )}
@@ -68,6 +69,7 @@ function App() {
                         render={(props) => (
                             <MobileApp
                                 {...props}
+                                setValue={setValue}
                                 setSelectedIndex={setSelectedIndex}
                             />
                         )}
@@ -79,6 +81,7 @@ function App() {
                         render={(props) => (
                             <Website
                                 {...props}
+                                setValue={setValue}
                                 setSelectedIndex={setSelectedIndex}
                             />
                         )}
@@ -86,19 +89,25 @@ function App() {
                     <Route
                         exact
                         path="/revolution"
-                        render={(props) => <Revolution {...props} />}
+                        render={(props) => (
+                            <Revolution {...props} setValue={setValue} />
+                        )}
                     />
 
                     <Route
                         exact
                         path="/about"
-                        render={(props) => <About {...props} />}
+                        render={(props) => (
+                            <About {...props} setValue={setValue} />
+                        )}
                     />
 
                     <Route
                         exact
                         path="/contact"
-                        render={(props) => <Contact {...props} />}
+                        render={(props) => (
+                            <Contact {...props} setValue={setValue} />
+                        )}
                     />
                     <Route
                         exact

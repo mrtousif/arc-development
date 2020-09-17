@@ -34,10 +34,13 @@ const useStyles = makeStyles((theme) => ({
             marginRight: 0,
             marginLeft: 0,
         },
+        fontSize: '1.5em',
+        width: 200,
     },
 }));
 
 function CallToAction(props) {
+    const { setValue } = props;
     const classes = useStyles();
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -72,7 +75,7 @@ function CallToAction(props) {
                             color="primary"
                             className={classes.button}
                             component={Link}
-                            to="/customsoftware"
+                            to="/revolution"
                         >
                             Learn More
                             <ArrowForwardIosIcon fontSize="inherit" />
@@ -84,10 +87,12 @@ function CallToAction(props) {
                 <Button
                     variant="contained"
                     color="secondary"
-                    size="large"
                     className={classes.estimate}
                     component={Link}
                     to="/estimate"
+                    onClick={() => {
+                        setValue(5);
+                    }}
                 >
                     Free Estimate
                 </Button>

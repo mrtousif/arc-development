@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
     Grid,
-    // Container,
     Typography,
     Button,
     Card,
@@ -451,8 +450,9 @@ export default function LandingPage(props) {
                     </Grid>
                 </Grid>
             </Grid>
+
             <Grid item>
-                <CallToAction />
+                <CallToAction setValue={setValue} />
             </Grid>
         </Grid>
     );

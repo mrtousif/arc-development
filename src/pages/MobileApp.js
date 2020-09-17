@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MobileApp(props) {
-    const { setSelectedIndex } = props;
+    const { setValue, setSelectedIndex } = props;
     const classes = useStyles();
     const theme = useTheme();
     const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
@@ -276,7 +276,7 @@ function MobileApp(props) {
                     </Grid>
                 </Grid>
             </Container>
-            <CallToAction />
+            <CallToAction setValue={setValue} />
         </React.Fragment>
     );
 }

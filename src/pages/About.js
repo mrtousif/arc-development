@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function About() {
+function About(props) {
+    const { setValue } = props;
     const classes = useStyles();
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -243,7 +244,7 @@ function About() {
                     </Grid>
                 </Grid>
             </Container>
-            <CallToAction />
+            <CallToAction setValue={setValue} />
         </React.Fragment>
     );
 }
