@@ -6,7 +6,6 @@ import {
     Grid,
     Button,
     Typography,
-    TextField,
     Dialog,
     DialogContent,
     useMediaQuery,
@@ -20,6 +19,7 @@ import mobileBackground from '../assets/mobileBackground.jpg';
 import phoneIcon from '../assets/phone.svg';
 import emailIcon from '../assets/email.svg';
 import airplane from '../assets/send.svg';
+import ContactForm from '../components/ContactForm';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -75,12 +75,11 @@ function Contact(props) {
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
-    const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [emailHelper, setEmailHelper] = useState('');
     const [phone, setPhone] = useState('');
+    const [emailHelper, setEmailHelper] = useState('');
     const [phoneHelper, setPhoneHelper] = useState('');
     const [message, setMessage] = useState('');
     const [open, setOpen] = useState(false);
@@ -91,50 +90,14 @@ function Contact(props) {
         backgroundColor: '',
     });
 
-    const handleChange = (event) => {
-        let target = event.target;
-        let valid;
-
-        switch (target.id) {
-            case 'email':
-                setEmail(target.value);
-                valid = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gim.test(
-                    target.value
-                );
-                if (!valid) {
-                    setEmailHelper('Invalid email');
-                } else {
-                    setEmailHelper('');
-                }
-                break;
-
-            case 'phone':
-                setPhone(target.value);
-                valid = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/.test(
-                    target.value
-                );
-                if (!valid) {
-                    setPhoneHelper('Invalid phone number');
-                } else {
-                    setPhoneHelper('');
-                }
-                break;
-
-            default:
-                break;
-        }
-    };
-
     const onConfirm = async () => {
         setLoading(true);
         try {
-            await ky.post('https://cloud.function.com', {
-                body: {
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    message: message,
-                },
+            await ky.post('https://cloud.function.com').json({
+                name: name,
+                email: email,
+                phone: phone,
+                message: message,
             });
 
             setLoading(false);
@@ -240,53 +203,20 @@ function Contact(props) {
                             </Typography>
                         </Grid>
                     </Grid>
-                    <Grid item container spacing={2}>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="name"
-                                label="Name"
-                                value={name}
-                                fullWidth
-                                onChange={(event) => {
-                                    setName(event.target.value);
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="phone"
-                                label="Phone"
-                                value={phone}
-                                fullWidth
-                                error={phoneHelper.length !== 0}
-                                helperText={phoneHelper}
-                                onChange={handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="email"
-                                label="Email"
-                                value={email}
-                                fullWidth
-                                error={emailHelper.length !== 0}
-                                helperText={emailHelper}
-                                onChange={handleChange}
-                                required
-                            />
-                        </Grid>
-                    </Grid>
                     <Grid item>
-                        <TextField
-                            id="message"
-                            value={message}
-                            onChange={(event) => setMessage(event.target.value)}
-                            fullWidth
-                            multiline
-                            rows={10}
-                            className={classes.message}
-                            InputProps={{ disableUnderline: true }}
-                            required
+                        <ContactForm
+                            name={name}
+                            setName={setName}
+                            email={email}
+                            setEmail={setEmail}
+                            phone={phone}
+                            setPhone={setPhone}
+                            message={message}
+                            setMessage={setMessage}
+                            emailHelper={emailHelper}
+                            setEmailHelper={setEmailHelper}
+                            phoneHelper={phoneHelper}
+                            setPhoneHelper={setPhoneHelper}
                         />
                     </Grid>
                     <Grid item>
@@ -313,7 +243,7 @@ function Contact(props) {
             <Dialog
                 open={open}
                 onClose={() => setOpen(false)}
-                fullScreen={matchesXS}
+                fullScreen={matchesSM}
                 PaperProps={{
                     style: {
                         paddingLeft: matchesSM ? 0 : '1.5em',
@@ -329,64 +259,27 @@ function Contact(props) {
                                 Confirm message
                             </Typography>
                         </Grid>
-                        <Grid item container direction="column">
-                            <Grid item container spacing={2}>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        id="name"
-                                        label="Name"
-                                        value={name}
-                                        fullWidth
-                                        onChange={(event) => {
-                                            setName(event.target.value);
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        id="phone"
-                                        label="Phone"
-                                        value={phone}
-                                        fullWidth
-                                        error={phoneHelper.length !== 0}
-                                        helperText={phoneHelper}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        id="email"
-                                        label="Email"
-                                        value={email}
-                                        fullWidth
-                                        error={emailHelper.length !== 0}
-                                        helperText={emailHelper}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    id="message"
-                                    value={message}
-                                    onChange={(event) =>
-                                        setMessage(event.target.value)
-                                    }
-                                    fullWidth
-                                    multiline
-                                    rows={10}
-                                    className={classes.message}
-                                    InputProps={{ disableUnderline: true }}
-                                    required
-                                />
-                            </Grid>
+                        <Grid item container>
+                            <ContactForm
+                                name={name}
+                                setName={setName}
+                                email={email}
+                                setEmail={setEmail}
+                                phone={phone}
+                                setPhone={setPhone}
+                                message={message}
+                                setMessage={setMessage}
+                                emailHelper={emailHelper}
+                                setEmailHelper={setEmailHelper}
+                                phoneHelper={phoneHelper}
+                                setPhoneHelper={setPhoneHelper}
+                                disabled={true}
+                            />
                         </Grid>
                     </Grid>
                     <Grid item container justify="flex-end" spacing={1}>
                         <Grid item>
                             <Button
-                                color="primary"
                                 variant="contained"
                                 className={classes.button}
                                 onClick={() => setOpen(false)}
@@ -423,7 +316,7 @@ function Contact(props) {
                 }}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 onClose={() => setAlert({ ...alert, open: false })}
-            ></Snackbar>
+            />
 
             {/*estimate*/}
             <Grid
