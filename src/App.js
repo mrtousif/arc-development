@@ -114,7 +114,6 @@ function App() {
                         path="/estimate"
                         render={(props) => <Estimate {...props} />}
                     />
-                    {/* <Route path="/signup" component={SignUp} /> */}
                 </Switch>
                 <Footer
                     setValue={setValue}

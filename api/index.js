@@ -40,7 +40,7 @@ app.post('/api/sendmail', (request, response) => {
             }
         });
 
-        let mailOptions = {
+        mailOptions = {
             from: 'Arc Development',
             to: email,
             subject: 'We have received your message',
@@ -57,6 +57,13 @@ app.post('/api/sendmail', (request, response) => {
 app.get('/api/hello', (req, res) => {
     res.status(200).json({
         message: 'Hello from Vercel serverless function',
+    });
+});
+
+app.all('*', (req, res) => {
+    res.status(404).json({
+        status: 'fail',
+        message: 'Route does not exist',
     });
 });
 
