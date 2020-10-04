@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 // text: 'Test successful',
 // };
 
-module.exports = (request, response) => {
+app.post('/api/sendmail', (request, response) => {
     cors(request, response, () => {
         const { name, email, phone, message } = request.body;
 
@@ -52,4 +52,12 @@ module.exports = (request, response) => {
             `,
         };
     });
-};
+});
+
+app.get('/api/hello', (req, res) => {
+    res.status(200).json({
+        message: 'Hello from Vercel serverless function',
+    });
+});
+
+module.exports = app;
