@@ -13,7 +13,7 @@ import Website from './pages/Website';
 import Revolution from './pages/Revolution';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Estimate from './pages/Estimate2';
+import Estimate from './pages/Estimate';
 // import tour5 from './tour5';
 
 function App() {

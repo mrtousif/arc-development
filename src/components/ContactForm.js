@@ -119,6 +119,7 @@ function ContactForm(props) {
                     fullWidth
                     multiline
                     rows={10}
+                    placeholder="Tell us more about your project"
                     className={classes.message}
                     InputProps={{ disableUnderline: true }}
                     required

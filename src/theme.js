@@ -27,6 +27,9 @@ const theme = createMuiTheme({
             textTransform: 'none',
         },
     },
+    background: {
+        default: '#fff',
+    },
     overrides: {
         MuiInputLabel: {
             root: {
