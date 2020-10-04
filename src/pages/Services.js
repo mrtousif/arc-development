@@ -42,7 +42,6 @@ function Services(props) {
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        // <Container>
         <Grid container direction="column">
             <Grid
                 item
@@ -224,7 +223,6 @@ function Services(props) {
                 </Grid>
             </Grid>
         </Grid>
-        // </Container>
     );
 }
 
