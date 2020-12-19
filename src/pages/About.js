@@ -1,30 +1,30 @@
-import React from 'react';
+import React from "react";
 import {
     Container,
     Grid,
     Typography,
     Avatar,
     useMediaQuery,
-    Hidden,
-} from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import history from '../assets/history.svg';
-import founder from '../assets/founder.jpg';
-import yearbook from '../assets/yearbook.svg';
-import puppy from '../assets/puppy.svg';
-import CallToAction from '../components/CallToAction';
+    // Hidden,
+} from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import history from "../assets/history.svg";
+import founder from "../assets/founder.jpg";
+// import yearbook from "../assets/yearbook.svg";
+// import puppy from "../assets/puppy.svg";
+import CallToAction from "../components/CallToAction";
 
 const useStyles = makeStyles((theme) => ({
     itemContainer: {
-        marginTop: '5em',
-        marginBottom: '5em',
+        marginTop: "5em",
+        marginBottom: "5em",
         // marginLeft: '2em',
         // marginRight: '2em',
     },
     avatar: {
-        height: '22em',
-        width: '22em',
-        [theme.breakpoints.down('xs')]: {
+        height: "22em",
+        width: "22em",
+        [theme.breakpoints.down("xs")]: {
             maxWidth: 300,
             maxHeight: 300,
         },
@@ -35,14 +35,14 @@ function About(props) {
     const { setValue } = props;
     const classes = useStyles();
     const theme = useTheme();
-    const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
-    const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
+    const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+    // const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
 
     return (
         <React.Fragment>
             <Container>
                 <Grid container>
-                    <Grid item style={{ marginTop: '2em' }}>
+                    <Grid item style={{ marginTop: "2em" }}>
                         <Typography variant="h4" color="primary">
                             About us
                         </Typography>
@@ -53,59 +53,50 @@ function About(props) {
                             varinat="h6"
                             color="primary"
                             align="center"
-                            style={{ fontStyle: 'italic' }}
+                            style={{ fontStyle: "italic" }}
                         >
-                            What once was confined to huge rooms and teams of
-                            engineers now resides in every single of our hands.
-                            Harnessing our unlimited potential by using it to
-                            solve problems and better lives is at heart of
-                            everything we do.
+                            What once was confined to huge rooms and teams of engineers
+                            now resides in every single of our hands. Harnessing our
+                            unlimited potential by using it to solve problems and better
+                            lives is at heart of everything we do.
                         </Typography>
                     </Grid>
 
                     <Grid item container className={classes.itemContainer}>
                         <Grid item md>
-                            <Typography
-                                variant="h5"
-                                color="primary"
-                                gutterBottom
-                            >
+                            <Typography variant="h5" color="primary" gutterBottom>
                                 History
                             </Typography>
                             <Typography
                                 variant="body1"
                                 paragraph
-                                style={{ fontWeight: 700, fontStyle: 'italic' }}
+                                style={{ fontWeight: 700, fontStyle: "italic" }}
                             >
                                 We're new kid on the block
                             </Typography>
                             <Typography varinat="body1" paragraph>
-                                What once was confined to huge rooms and teams
-                                of engineers now resides in every single of our
-                                hands. Harnessing our unlimited potential by
-                                using it to solve problems and better lives is
-                                at heart of everything we do.
+                                What once was confined to huge rooms and teams of
+                                engineers now resides in every single of our hands.
+                                Harnessing our unlimited potential by using it to solve
+                                problems and better lives is at heart of everything we do.
                             </Typography>
                             <Typography varinat="body1" paragraph>
-                                What once was confined to huge rooms and teams
-                                of engineers now resides in every single of our
-                                hands. Harnessing our unlimited potential by
-                                using it to solve problems and better lives is
-                                at heart of everything we do.
+                                What once was confined to huge rooms and teams of
+                                engineers now resides in every single of our hands.
+                                Harnessing our unlimited potential by using it to solve
+                                problems and better lives is at heart of everything we do.
                             </Typography>
                             <Typography varinat="body1" paragraph>
-                                What once was confined to huge rooms and teams
-                                of engineers now resides in every single of our
-                                hands. Harnessing our unlimited potential by
-                                using it to solve problems and better lives is
-                                at heart of everything we do.
+                                What once was confined to huge rooms and teams of
+                                engineers now resides in every single of our hands.
+                                Harnessing our unlimited potential by using it to solve
+                                problems and better lives is at heart of everything we do.
                             </Typography>
                             <Typography varinat="body1" paragraph>
-                                What once was confined to huge rooms and teams
-                                of engineers now resides in every single of our
-                                hands. Harnessing our unlimited potential by
-                                using it to solve problems and better lives is
-                                at heart of everything we do.
+                                What once was confined to huge rooms and teams of
+                                engineers now resides in every single of our hands.
+                                Harnessing our unlimited potential by using it to solve
+                                problems and better lives is at heart of everything we do.
                             </Typography>
                         </Grid>
                         <Grid item container justify="center" md>
@@ -113,8 +104,8 @@ function About(props) {
                                 src={history}
                                 alt="quill pen sitting on top of book"
                                 style={{
-                                    maxWidth: matchesSM ? 300 : '30em',
-                                    maxHeight: '22em',
+                                    maxWidth: matchesSM ? 300 : "30em",
+                                    maxHeight: "22em",
                                 }}
                             />
                         </Grid>
@@ -129,15 +120,11 @@ function About(props) {
                         className={classes.itemContainer}
                     >
                         <Grid item align="center">
-                            <Typography
-                                variant="h5"
-                                color="primary"
-                                gutterBottom
-                            >
+                            <Typography variant="h5" color="primary" gutterBottom>
                                 Team
                             </Typography>
                             <Typography variant="body1" paragraph>
-                                Zachery Reece, Founder
+                                Tousif Islam, Founder
                             </Typography>
                         </Grid>
                         <Grid item>
@@ -149,7 +136,7 @@ function About(props) {
                         </Grid>
                     </Grid>
 
-                    <Grid
+                    {/* <Grid
                         item
                         container
                         // direction={matchesSM ? 'column' : 'row'}
@@ -241,7 +228,7 @@ function About(props) {
                                 </Typography>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Container>
             <CallToAction setValue={setValue} />
