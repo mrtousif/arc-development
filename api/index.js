@@ -16,9 +16,16 @@ const transporter = nodemailer.createTransport({
 // text: 'Test successful',
 // };
 
-app.post("/sendmail", (request, response) => {
-    cors(request, response, () => {
-        const { name, email, phone, message } = request.body;
+app.get("/api", (req, res) => {
+    const path = `/api/sendmail`;
+    res.setHeader("Content-Type", "text/html");
+    res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
+    res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
+});
+
+app.post("/api/sendmail", (req, res) => {
+    cors(req, res, () => {
+        const { name, email, phone, message } = req.body;
 
         let mailOptions = {
             from: "Arc Development",
@@ -34,9 +41,9 @@ app.post("/sendmail", (request, response) => {
 
         transporter.sendMail(mailOptions, (error) => {
             if (error) {
-                response.status(204).send(error);
+                res.status(204).send(error);
             } else {
-                response.status(200).send("Message sent successfully");
+                res.status(200).send("Message sent successfully");
             }
         });
 
@@ -54,17 +61,17 @@ app.post("/sendmail", (request, response) => {
     });
 });
 
-app.get("/hello", (req, res) => {
+app.get("/api/hello", (req, res) => {
     res.status(200).json({
         message: "Hello from Vercel serverless function",
     });
 });
 
-// app.all('*', (req, res) => {
-//     res.status(404).json({
-//         status: 'fail',
-//         message: 'Route does not exist',
-//     });
-// });
+app.all("/api/*", (req, res) => {
+    res.status(404).json({
+        status: "fail",
+        message: "Route does not exist",
+    });
+});
 
 module.exports = app;

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
     Grid,
     Typography,
@@ -12,50 +12,50 @@ import {
     Hidden,
     Snackbar,
     CircularProgress,
-} from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { clone } from 'ramda';
-import Lottie from 'lottie-react';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import estimateAnimation from '../animations/estimateAnimation/data.json';
+} from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { clone } from "ramda";
+import Lottie from "lottie-react";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import estimateAnimation from "../animations/estimateAnimation/data.json";
 import {
     defaultQuestions,
     softwareQuestions,
     websiteQuestions,
-} from '../components/questions';
-import check from '../assets/check.svg';
-import send from '../assets/send.svg';
-import ky from 'ky';
-import ContactForm from '../components/ContactForm';
+} from "../components/questions";
+import check from "../assets/check.svg";
+import send from "../assets/send.svg";
+import ky from "ky";
+import ContactForm from "../components/ContactForm";
 
 const useStyles = makeStyles((theme) => ({
     estimate: {
         ...theme.typography.estimate,
         // marginLeft: '5em',
-        fontSize: '1.5em',
+        fontSize: "1.5em",
         width: 200,
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down("sm")]: {
             marginRight: 0,
             marginLeft: 0,
         },
     },
     icon: {
-        marginTop: '1em',
-        marginLeft: '2em',
-        marginRight: '2em',
-        marginBottom: '3em',
+        marginTop: "1em",
+        marginLeft: "2em",
+        marginRight: "2em",
+        marginBottom: "3em",
     },
     serviceItem: {
-        marginTop: '1em',
+        marginTop: "1em",
         // [theme.breakpoints.down('sm')]: {
         // },
         // marginRight: '3em',
     },
 
     specialText: {
-        fontFamily: 'Pacifico',
-        fontSize: '1.5rem',
+        fontFamily: "Pacifico",
+        fontSize: "1.5rem",
         fontWeight: 700,
         color: theme.palette.secondary.main,
     },
@@ -63,14 +63,14 @@ const useStyles = makeStyles((theme) => ({
         ...theme.typography.estimate,
         marginRight: 10,
         marginBottom: 10,
-        fontSize: '1.1rem',
+        fontSize: "1.1rem",
     },
 }));
 
 function Estimate(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
     const [questions, setQuestions] = useState(defaultQuestions);
     const [activeQIndex, setActiveQIndex] = useState(
@@ -85,29 +85,29 @@ function Estimate(props) {
     );
     const [total, setTotal] = useState(0);
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [service, setService] = useState('');
+    const [service, setService] = useState("");
     const [platforms, setPlatforms] = useState([]);
     const [features, setFeatures] = useState([]);
-    const [customFeature, setCustomFeature] = useState('');
-    const [numberOfUsers, setNumberOfUsers] = useState('');
-    const [category, setCategory] = useState('');
+    const [customFeature, setCustomFeature] = useState("");
+    const [numberOfUsers, setNumberOfUsers] = useState("");
+    const [category, setCategory] = useState("");
     const [loading, setLoading] = useState(false);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [message, setMessage] = useState('');
-    const [emailHelper, setEmailHelper] = useState('');
-    const [phoneHelper, setPhoneHelper] = useState('');
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [message, setMessage] = useState("");
+    const [emailHelper, setEmailHelper] = useState("");
+    const [phoneHelper, setPhoneHelper] = useState("");
     const [alert, setAlert] = useState({
         open: false,
-        message: '',
-        backgroundColor: '',
+        message: "",
+        backgroundColor: "",
     });
 
     const onConfirm = () => {
         setLoading(true);
 
-        ky.post('https://google.cloud.functions')
+        ky.post("https://arc-development-alpha.vercel.app/api/sendmail")
             .json({
                 name,
                 email,
@@ -123,14 +123,14 @@ function Estimate(props) {
             })
             .then(() => {
                 setLoading(false);
-                setName('');
-                setEmail('');
-                setPhone('');
-                setMessage('');
+                setName("");
+                setEmail("");
+                setPhone("");
+                setMessage("");
                 setAlert({
                     open: true,
-                    message: 'Estimate placed successfully',
-                    backgroundColor: '#4BB543',
+                    message: "Estimate placed successfully",
+                    backgroundColor: "#4BB543",
                 });
                 setDialogOpen(false);
             })
@@ -138,21 +138,18 @@ function Estimate(props) {
                 setLoading(false);
                 setAlert({
                     open: true,
-                    message: 'Something went wrong, please try again',
-                    backgroundColor: '#FF3232',
+                    message: "Something went wrong, please try again",
+                    backgroundColor: "#FF3232",
                 });
                 console.error(error);
             });
     };
 
     const estimateDisabled = () => {
-        if (activeQIndex === 0 || activeQIndex !== questions.length - 1)
-            return true;
+        if (activeQIndex === 0 || activeQIndex !== questions.length - 1) return true;
 
         const selectedQuestions = questions
-            .map((question) =>
-                question.options.filter((option) => option.selected)
-            )
+            .map((question) => question.options.filter((option) => option.selected))
             .filter((questions) => questions.length > 0);
 
         if (
@@ -211,12 +208,10 @@ function Estimate(props) {
         const newQuestions = clone(questions);
         const activeQuestion = newQuestions[activeQIndex];
         // get the selected option
-        const selected = activeQuestion.options.filter(
-            (option) => id === option.id
-        );
+        const selected = activeQuestion.options.filter((option) => id === option.id);
         // when one option to select set the previously selected option to false
         // and subtract the cost from total
-        if (activeQuestion.subtitle === 'Select one.') {
+        if (activeQuestion.subtitle === "Select one.") {
             activeQuestion.options.forEach((option) => {
                 if (option.selected) {
                     option.selected = false;
@@ -228,7 +223,7 @@ function Estimate(props) {
         selected[0].selected = !selected[0].selected;
 
         //get the selected platforms
-        if (activeQuestion.title === 'Which platforms do you need supported?') {
+        if (activeQuestion.title === "Which platforms do you need supported?") {
             const selectedPlatform = activeQuestion.options
                 .filter((option) => option.selected)
                 .map((element) => element.title);
@@ -237,31 +232,31 @@ function Estimate(props) {
         }
 
         switch (selected[0].title) {
-            case 'Custom Software Development':
+            case "Custom Software Development":
                 setQuestions(softwareQuestions);
                 setActiveQIndex(1);
                 setTotal(0);
-                setService('Custom Software Development');
+                setService("Custom Software Development");
                 setPlatforms([]);
-                setNumberOfUsers('');
+                setNumberOfUsers("");
                 return;
 
-            case 'Android/IOS App Development':
+            case "Android/IOS App Development":
                 setQuestions(softwareQuestions);
                 setActiveQIndex(1);
                 setTotal(0);
-                setService('Android/IOS App Development');
+                setService("Android/IOS App Development");
                 setPlatforms([]);
-                setNumberOfUsers('');
+                setNumberOfUsers("");
                 return;
 
-            case 'Website Development':
+            case "Website Development":
                 setQuestions(websiteQuestions);
                 setActiveQIndex(1);
                 setTotal(0);
-                setService('Website Development');
+                setService("Website Development");
                 setPlatforms([]);
-                setNumberOfUsers('');
+                setNumberOfUsers("");
                 return;
 
             default:
@@ -275,12 +270,9 @@ function Estimate(props) {
         const featureTitles = [];
         questions
             .filter(
-                (question) =>
-                    question.title === 'Which features do you expect to use?'
+                (question) => question.title === "Which features do you expect to use?"
             )
-            .map((question) =>
-                question.options.filter((option) => option.selected)
-            )
+            .map((question) => question.options.filter((option) => option.selected))
             .map((element) =>
                 element.map((feature) => featureTitles.push(feature.title))
             );
@@ -295,7 +287,7 @@ function Estimate(props) {
                 .filter(
                     (question) =>
                         question.title ===
-                        'What type of custom features do you expect to need?'
+                        "What type of custom features do you expect to need?"
                 )
                 .map((question) =>
                     question.options.filter((option) => option.selected)
@@ -304,7 +296,7 @@ function Estimate(props) {
             setCustomFeature(selectedCustomFeatures);
         } catch (error) {
             console.error(
-                'Option of question: What type of custom features do you expect to need? is not selected'
+                "Option of question: What type of custom features do you expect to need? is not selected"
             );
         }
     };
@@ -316,8 +308,7 @@ function Estimate(props) {
             const selectedCategory = questions
                 .filter(
                     (question) =>
-                        question.title ===
-                        'Which type of website are you wanting?'
+                        question.title === "Which type of website are you wanting?"
                 )[0]
                 .options.filter((option) => option.selected)[0].title;
 
@@ -337,10 +328,7 @@ function Estimate(props) {
             })
         );
 
-        if (
-            questions[questions.length - 1].title ===
-            'How many users do you expect?'
-        ) {
+        if (questions[questions.length - 1].title === "How many users do you expect?") {
             questions[questions.length - 1].options.forEach((option) => {
                 if (option.selected) {
                     cost -= option.cost;
@@ -371,13 +359,13 @@ function Estimate(props) {
                             ? null
                             : ` for ${
                                   //if only web application is selected...
-                                  platforms.indexOf('Web Application') > -1 &&
+                                  platforms.indexOf("Web Application") > -1 &&
                                   platforms.length === 1
                                       ? //then finish sentence here
-                                        'a Web Application.'
+                                        "a Web Application."
                                       : //otherwise, if web application and another platform is selected...
-                                      platforms.indexOf('Web Application') >
-                                            -1 && platforms.length === 2
+                                      platforms.indexOf("Web Application") > -1 &&
+                                        platforms.length === 2
                                       ? //then finish the sentence here
                                         `a Web Application and an ${platforms[1]}.`
                                       : //otherwise, if only one platform is selected which isn't web application...
@@ -387,11 +375,11 @@ function Estimate(props) {
                                       : //otherwise, if other two options are selected...
                                       platforms.length === 2
                                       ? //then finish the sentence here
-                                        'an iOS Application and an Android Application.'
+                                        "an iOS Application and an Android Application."
                                       : //otherwise if all three are selected...
                                       platforms.length === 3
                                       ? //then finish the sentence here
-                                        'a Web Application, an iOS Application, and an Android Application.'
+                                        "a Web Application, an iOS Application, and an Android Application."
                                       : null
                               }`}
                     </Typography>
@@ -409,7 +397,7 @@ function Estimate(props) {
                 </Grid>
                 <Grid item xs={10}>
                     <Typography variant="body1">
-                        {'with '}
+                        {"with "}
                         {/* if we have features... */}
                         {features.length > 0
                             ? //...and there's only 1...
@@ -429,9 +417,7 @@ function Estimate(props) {
                                       )
                                       //and for those features return their name...
                                       .map((feature, index) => (
-                                          <span
-                                              key={index}
-                                          >{`${feature}, `}</span>
+                                          <span key={index}>{`${feature}, `}</span>
                                       ))
                             : null}
                         {features.length > 2
@@ -453,8 +439,7 @@ function Estimate(props) {
                 </Grid>
                 <Grid item xs={10}>
                     <Typography variant="body1">
-                        The custom features will be{' '}
-                        {customFeature.toLowerCase()}
+                        The custom features will be {customFeature.toLowerCase()}
                         {`, and project will be used by about ${numberOfUsers} users.`}
                     </Typography>
                 </Grid>
@@ -475,8 +460,7 @@ function Estimate(props) {
                 </Grid>
                 <Grid item xs={10}>
                     <Typography variant="body1">
-                        You want{' '}
-                        {category === 'Basic' ? 'a Basic' : `an ${category}`}{' '}
+                        You want {category === "Basic" ? "a Basic" : `an ${category}`}{" "}
                         website
                     </Typography>
                 </Grid>
@@ -489,10 +473,10 @@ function Estimate(props) {
             container
             justify="center"
             style={{
-                marginBottom: '6em',
+                marginBottom: "6em",
             }}
         >
-            <Grid item xs={12} style={{ margin: '2em' }}>
+            <Grid item xs={12} style={{ margin: "2em" }}>
                 <Typography variant="h4" color="primary">
                     Estimate
                 </Typography>
@@ -503,32 +487,28 @@ function Estimate(props) {
                 xs={12}
                 lg={5}
                 style={{
-                    marginBottom: '3em',
-                    maxWidth: '50em',
+                    marginBottom: "3em",
+                    maxWidth: "50em",
                 }}
             >
                 <Lottie animationData={estimateAnimation} />
             </Grid>
 
             <Grid item container direction="column" justify="center" lg={7}>
-                <Grid item style={{ marginBottom: '2em' }}>
+                <Grid item style={{ marginBottom: "2em" }}>
                     <Typography
                         variant="h5"
                         color="primary"
                         align="center"
                         style={{
                             fontWeight: 500,
-                            paddingLeft: '0.5em',
-                            paddingRight: '0.5em',
+                            paddingLeft: "0.5em",
+                            paddingRight: "0.5em",
                         }}
                     >
                         {questions[activeQIndex].title}
                     </Typography>
-                    <Typography
-                        variant="subtitle1"
-                        color="textSecondary"
-                        align="center"
-                    >
+                    <Typography variant="subtitle1" color="textSecondary" align="center">
                         {questions[activeQIndex].subtitle}
                     </Typography>
                 </Grid>
@@ -550,11 +530,7 @@ function Estimate(props) {
                                     : null,
                             }}
                         >
-                            <Grid
-                                item
-                                style={{ maxWidth: '12em' }}
-                                align="center"
-                            >
+                            <Grid item style={{ maxWidth: "12em" }} align="center">
                                 <Typography variant="body1" color="primary">
                                     {option.title}
                                 </Typography>
@@ -575,7 +551,7 @@ function Estimate(props) {
                 </Grid>
 
                 <Grid item container justify="center">
-                    <Grid item style={{ marginRight: '8em' }}>
+                    <Grid item style={{ marginRight: "8em" }}>
                         <IconButton
                             disabled={handleBack()}
                             color="primary"
@@ -595,12 +571,7 @@ function Estimate(props) {
                         </IconButton>
                     </Grid>
                 </Grid>
-                <Grid
-                    item
-                    container
-                    justify="center"
-                    style={{ marginTop: '2em' }}
-                >
+                <Grid item container justify="center" style={{ marginTop: "2em" }}>
                     <Button
                         variant="contained"
                         color="secondary"
@@ -627,10 +598,10 @@ function Estimate(props) {
                 maxWidth="md"
                 PaperProps={{
                     style: {
-                        paddingLeft: matchesSM ? 0 : '5em',
-                        paddingRight: matchesSM ? 0 : '5em',
-                        paddingBottom: matchesSM ? 0 : '2em',
-                        paddingTop: matchesSM ? 0 : '2em',
+                        paddingLeft: matchesSM ? 0 : "5em",
+                        paddingRight: matchesSM ? 0 : "5em",
+                        paddingBottom: matchesSM ? 0 : "2em",
+                        paddingTop: matchesSM ? 0 : "2em",
                     },
                 }}
                 style={{ zIndex: 1302 }}
@@ -638,11 +609,7 @@ function Estimate(props) {
                 <DialogContent>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography
-                                variant="h5"
-                                gutterBottom
-                                align="center"
-                            >
+                            <Typography variant="h5" gutterBottom align="center">
                                 Estimate
                             </Typography>
                         </Grid>
@@ -651,7 +618,7 @@ function Estimate(props) {
                             container
                             direction="column"
                             md={7}
-                            style={{ paddingRight: matchesSM ? 0 : '5em' }}
+                            style={{ paddingRight: matchesSM ? 0 : "5em" }}
                         >
                             <ContactForm
                                 name={name}
@@ -669,26 +636,16 @@ function Estimate(props) {
                             />
 
                             <Grid item>
-                                <Typography
-                                    variant="body2"
-                                    color="initial"
-                                    paragraph
-                                >
-                                    We can create this digital solution for
-                                    estimated{' '}
+                                <Typography variant="body2" color="initial" paragraph>
+                                    We can create this digital solution for estimated{" "}
                                     <span className={classes.specialText}>
                                         ${total.toFixed(2)}
                                     </span>
                                 </Typography>
-                                <Typography
-                                    variant="body2"
-                                    color="initial"
-                                    paragraph
-                                >
-                                    Fill out your name, phone number and email
-                                    place your request and we will get back to
-                                    you with details moving forward and final
-                                    price.
+                                <Typography variant="body2" color="initial" paragraph>
+                                    Fill out your name, phone number and email place your
+                                    request and we will get back to you with details
+                                    moving forward and final price.
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -700,14 +657,12 @@ function Estimate(props) {
                             spacing={2}
                             // style={{ marginLeft: '0em' }}
                         >
-                            {questions.length > 2
-                                ? softwareSelection
-                                : websiteSelection}
+                            {questions.length > 2 ? softwareSelection : websiteSelection}
                             <Grid
                                 item
                                 container
                                 justify="center"
-                                style={{ marginTop: '5em' }}
+                                style={{ marginTop: "5em" }}
                             >
                                 <Button
                                     variant="contained"
@@ -731,7 +686,7 @@ function Estimate(props) {
                                             <img
                                                 src={send}
                                                 alt="paper airplane"
-                                                style={{ marginLeft: '0.5em' }}
+                                                style={{ marginLeft: "0.5em" }}
                                             />
                                         </React.Fragment>
                                     )}
@@ -758,7 +713,7 @@ function Estimate(props) {
                 ContentProps={{
                     style: { backgroundColor: alert.backgroundColor },
                 }}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
                 onClose={() => setAlert({ ...alert, open: false })}
             />
         </Grid>
