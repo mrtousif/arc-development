@@ -4,6 +4,8 @@ const cors = require("cors")({ origin: true });
 
 const app = express();
 
+app.use(express.json({ limit: "1000kb" }));
+
 const transporter = nodemailer.createTransport({
     service: "Outlook",
     auth: { user: process.env.EMAIL, pass: process.env.PASSWORD },
